@@ -75,11 +75,8 @@ app.all('/search',
   passport.authenticate(authenticationStrategy, { session: false }),
   (httpReq, httpRes) => {
 
-  // The JiraClient doesn't have any way to list filters so we need to do a custom query
-  jira.makeRequest({
-    uri: jira.buildURL('/filter')
-  }).then((jiraRes) => {
-  
+  jira.filter.getFavoriteFilters(
+  ).then(jiraRes => {
     let result = jiraRes.map(filter => {
       return {
         text: filter.name,
